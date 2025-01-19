@@ -12,7 +12,6 @@ app.post("/signin", async (req, res) => {
     const { userName, passWord } = req.body;
     try {
         const userCheck = await user.findOne({ where: { userName: userName } })
-        console.log("userCheck",userCheck)
         if (!userCheck) {
             return res.status(404).json({ "message": "User not found" })
         }

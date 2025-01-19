@@ -17,16 +17,29 @@ module.exports = (sequelize, DataTypes) => {
   user.init({
     id: {
       type: DataTypes.UUID,
-      defaultValue: Sequelize.UUIDV4, // Generates a new UUID for each user
-      primaryKey: true, // Set it as the primary key
+      defaultValue: Sequelize.UUIDV4, 
+      primaryKey: true, 
       allowNull: false
     },
-    userName: DataTypes.STRING,
-    passWord: DataTypes.STRING,
-    role: DataTypes.STRING,
+    name: {
+      type: DataTypes.STRING, 
+      allowNull: false, 
+    },
+    userName: {
+      type: DataTypes.STRING,
+      allowNull: false, 
+    },
+    passWord: {
+      type: DataTypes.STRING,
+      allowNull: false,
+    },
+    role: {
+      type: DataTypes.STRING,
+      allowNull: false,
+    },
     adminId: {
       type: DataTypes.UUID,
-      allowNull: true 
+      allowNull: true, 
     }
   }, {
     sequelize,
