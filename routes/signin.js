@@ -8,10 +8,11 @@ require('dotenv').config();
 var bcrypt = require('bcrypt')
 
 
-app.use("/signin", async (req, res) => {
+app.post("/signin", async (req, res) => {
     const { userName, passWord } = req.body;
     try {
         const userCheck = await user.findOne({ where: { userName: userName } })
+        console.log("userCheck",userCheck)
         if (!userCheck) {
             return res.status(404).json({ "message": "User not found" })
         }
@@ -20,7 +21,8 @@ app.use("/signin", async (req, res) => {
             if (verify) {
                 const role = userCheck.role
                 const name = userCheck.name
-                var token = jsonwebtoken.sign({ userName }, process.env.secret_key, { 'expiresIn': '1h' })
+                const id  = userCheck.id
+                var token = jsonwebtoken.sign({ id, role, name }, process.env.secret_key, { 'expiresIn': '1h' })
                 return res.status(200).json({ "message": "Sucessfully Login", token: token, role: role, name: name })
             }
             else {

@@ -6,8 +6,9 @@ var cors = require('cors')
 var logger = require('morgan');
 var connection = require('./sequelize/sequelize')
 
-var userRouter = require('./routes/user');
+var signupRouter = require('./routes/signup');
 var signInRouter = require('./routes/signin')
+var userRouter  =  require('./routes/user')
 
 var app = express();
 app.use(cors())
@@ -23,8 +24,10 @@ app.use(express.urlencoded({ extended: true }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
-app.use('/', userRouter);
+app.use('/', signupRouter);
 app.use('/', signInRouter);
+app.use('/', userRouter);
+
 
 
 // catch 404 and forward to error handler
