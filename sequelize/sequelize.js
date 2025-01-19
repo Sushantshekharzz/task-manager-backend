@@ -1,9 +1,13 @@
 var Sequelize =  require('sequelize')
+require('dotenv').config();
 
-var sequelize  =  new Sequelize('ring', 'postgres', 'test', {
-    host:'localhost',
-    dialect:'postgres'
-})
+
+const sequelize  =  new Sequelize(process.env.DB, process.env.USER, process.env.PASSWORD,
+    {
+        host:process.env.HOST,
+        dialect:'postgres'
+    }
+)
 
 const connection  = () =>{
     sequelize.authenticate().then(
