@@ -2,12 +2,12 @@ var createError = require('http-errors');
 var express = require('express');
 var path = require('path');
 var cookieParser = require('cookie-parser');
-var cors  = require('cors')
+var cors = require('cors')
 var logger = require('morgan');
-var connection  = require('./sequelize/sequelize')
+var connection = require('./sequelize/sequelize')
 
 var userRouter = require('./routes/user');
-var loginRouter = require('./routes/login')
+var signInRouter = require('./routes/signin')
 
 var app = express();
 app.use(cors())
@@ -24,16 +24,16 @@ app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/', userRouter);
-app.use('/', loginRouter);
+app.use('/', signInRouter);
 
 
 // catch 404 and forward to error handler
-app.use(function(req, res, next) {
+app.use(function (req, res, next) {
   next(createError(404));
 });
 
 // error handler
-app.use(function(err, req, res, next) {
+app.use(function (err, req, res, next) {
   // set locals, only providing error in development
   res.locals.message = err.message;
   res.locals.error = req.app.get('env') === 'development' ? err : {};

@@ -19,11 +19,12 @@ app.use("/signin", async (req, res) => {
             const verify = await bcrypt.compare(passWord, userCheck.passWord)
             if (verify) {
                 const role = userCheck.role
+                const name = userCheck.name
                 var token = jsonwebtoken.sign({ userName }, process.env.secret_key, { 'expiresIn': '1h' })
-                return res.status(200).json({ "message": "Sucessfully Login", token: token, role: role })
+                return res.status(200).json({ "message": "Sucessfully Login", token: token, role: role, name: name })
             }
             else {
-                return res.status(401).json({ "message": "Unauthorized" })
+                return res.status(401).json({ "message": "Unauthorized User" })
             }
         }
     } catch (error) {
