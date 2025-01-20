@@ -27,7 +27,7 @@ router.get("/users", authentication, async (req, res) => {
     try {
         const response = await user.findAll({
             where: { adminId: adminId },
-            attributes: { exclude: ['passWord', 'role', 'adminId', 'createdAt', 'updatedAt'] }
+            attributes: { exclude: ['passWord',  'adminId'] }
         })
         return res.status(200).send(response)
     } catch (error) {
@@ -56,7 +56,7 @@ router.get("/users/:id", authentication, async (req, res) => {
     try {
         const response = await user.findAll({
             where: { adminId: adminId, id: id },
-            attributes: { exclude: ['passWord', 'role', 'adminId', 'createdAt', 'updatedAt'] }
+            attributes: { exclude: ['passWord', 'adminId'] }
         })
         return res.status(200).send(response)
     } catch (error) {
