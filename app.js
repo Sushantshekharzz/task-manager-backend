@@ -11,8 +11,15 @@ var signInRouter = require('./routes/signin')
 var userRouter  =  require('./routes/user')
 
 var app = express();
-app.use(cors())
-connection();
+const allowedOrigins = [
+  "task-management-app-live.netlify.app" // your Netlify domain
+];
+
+app.use(cors({
+  origin: allowedOrigins,
+  methods: ['GET', 'POST', 'PUT', 'DELETE'],
+  allowedHeaders: ['Content-Type', 'Authorization'],
+}));connection();
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
