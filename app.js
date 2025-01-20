@@ -12,7 +12,7 @@ var userRouter  =  require('./routes/user')
 
 var app = express();
 const allowedOrigins = [
-  "task-management-app-live.netlify.app" // your Netlify domain
+  'https://task-management-app-live.netlify.app'
 ];
 
 app.use(cors({
