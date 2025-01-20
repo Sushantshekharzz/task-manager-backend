@@ -1,12 +1,8 @@
 require('dotenv').config();
-console.log('DB:', process.env.DB);
-console.log('HOST:', process.env.HOST);
-console.log('USER:', process.env.USER);
-console.log('PASSWORD:', process.env.PASSWORD)
 
 module.exports = {
   "development": {
-    "username": process.env.USER,
+    "username": process.env.DB_USER,
     "password": process.env.PASSWORD,
     "database": process.env.DB,
     "host":process.env.HOST,
@@ -21,7 +17,7 @@ module.exports = {
     "dialect": "mysql"
   },
   "production": {
-    "username": process.env.USER,
+    "username": process.env.DB_USER,
     "password": process.env.PASSWORD,
     "database": process.env.DB,
     "host": process.env.HOST,
