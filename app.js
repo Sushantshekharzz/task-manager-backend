@@ -9,6 +9,7 @@ var connection = require('./sequelize/sequelize')
 var signupRouter = require('./routes/signup');
 var signInRouter = require('./routes/signin')
 var userRouter  =  require('./routes/user')
+var taskRouter  = require('./routes/task')
 
 var app = express();
 app.use(cors())
@@ -27,6 +28,8 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use('/', signupRouter);
 app.use('/', signInRouter);
 app.use('/', userRouter);
+app.use('/', taskRouter);
+
 
 
 
