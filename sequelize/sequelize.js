@@ -6,7 +6,13 @@ require('dotenv').config();
 const sequelize  =  new Sequelize(process.env.DB, process.env.DB_USER, process.env.PASSWORD,
     {
         host:process.env.HOST,
-        dialect:'postgres'
+        dialect:'postgres',
+        dialectOptions: {
+            ssl: {
+              require: true, // Enable SSL
+              rejectUnauthorized: false, // Accept unauthorized certificates (use with caution in production)
+            }
+          }
     }
 )
 
