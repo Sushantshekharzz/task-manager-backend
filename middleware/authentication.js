@@ -10,7 +10,12 @@ const authentication = (req, res, next) => {
             return err
         }
         else {
-            req.user = { adminId: auth.id };
+           req.user = {
+            adminId: auth.id,
+            role: auth.role,
+            name: auth.name,
+            userName: auth.userName
+        };
             next()
         }
     })

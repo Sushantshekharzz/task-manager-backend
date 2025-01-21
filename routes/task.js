@@ -3,13 +3,22 @@ var app = express();
 var { Task } = require('../models/index')
 var authentication = require('../middleware/authentication')
 require('dotenv').config();
+const { Op } = require('sequelize');
+
 
 app.post("/tasks", authentication, async (req, res) => {
     const { title, description, priority, assignedUsers, dueDate, status } = req.body;
     const adminId = req.user.adminId;
 
     try {
-        const response = await Task.create({ title, description, priority, assignedUsers, dueDate, status, adminId });
+        const users = Array.isArray(assignedUsers) ? assignedUsers : [assignedUsers];
+
+        const response = await Task.create({
+            title, description, priority,
+            assignedUsers: users,
+
+            dueDate, status, adminId
+        });
         return res.status(200).json({ message: "Taks Added successfully." });
     } catch (error) {
         return res.status(500).json({ message: "Internal server error." });
@@ -17,15 +26,26 @@ app.post("/tasks", authentication, async (req, res) => {
 })
 
 app.get("/tasks", authentication, async (req, res) => {
+    const { role, userName } = req.user;
     const adminId = req.user.adminId;
 
     try {
-        const response = await Task.findAll({ where: { adminId: adminId } });
-        return res.status(200).send(response)
+        if (role === 'Admin') {
+
+            const tasks = await Task.findAll({ where: { adminId: adminId } });
+            return res.status(200).json(tasks);
+        } else if (role === 'User') {
+            const tasks = await Task.findAll({ where: { assignedUsers: { [Op.contains]: [userName] } } });
+            return res.status(200).json(tasks);
+        } else {
+            return res.status(403).json({ message: "Unauthorized access" });
+        }
     } catch (error) {
+        console.log(error);
         return res.status(500).json({ message: "Internal server error." });
     }
-})
+});
+
 
 app.get("/tasks/:id", authentication, async (req, res) => {
     const id = req.params.id
@@ -51,7 +71,9 @@ app.put("/tasks/:id", authentication, async (req, res) => {
 
         if (status) task.status = status;
         if (priority) task.priority = priority;
-        if (assignedUsers) task.assignedUsers = assignedUsers;
+        if (assignedUsers) {
+            task.assignedUsers = Array.isArray(assignedUsers) ? assignedUsers : [assignedUsers];
+        }
         if (title) task.title = title;
         if (description) task.description = description;
         if (dueDate) task.dueDate = dueDate;

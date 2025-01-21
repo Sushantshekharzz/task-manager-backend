@@ -21,7 +21,7 @@ app.post("/signin", async (req, res) => {
                 const role = userCheck.role
                 const name = userCheck.name
                 const id  = userCheck.id
-                var token = jsonwebtoken.sign({ id, role, name }, process.env.secret_key, { 'expiresIn': '1h' })
+                var token = jsonwebtoken.sign({ id, role, name , userName}, process.env.secret_key, { 'expiresIn': '1h' })
                 return res.status(200).json({ "message": "Sucessfully Login", token: token, role: role, name: name })
             }
             else {
