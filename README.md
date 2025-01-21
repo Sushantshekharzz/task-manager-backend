@@ -179,12 +179,7 @@ You can also directly visit the API at the following URL:
   "message": "Internal server error."
 }
 ```
-- Server Error:
-```json
-{ 
-    "message": "Internal server error." 
-}
-```
+
 
 
 ### 4. **Get All Tasks**
@@ -276,7 +271,7 @@ You can also directly visit the API at the following URL:
   "message": "Task not found"
 }
 ```
-### 6. **Update Task**
+### 7. **Update Task**
 - **PUT** `/tasks/:id`
 - **Description**: : Updates an existing task's details.
 - **Authorization**: Requires authentication (JWT Token).
@@ -310,7 +305,7 @@ You can also directly visit the API at the following URL:
 #### Response (Failure):
 ```json
 {
-  "message": "No task found with the given criteria."
+  "message": "Error updating task"
 }
 ```
 
