@@ -1,4 +1,3 @@
-// models/task.js
 module.exports = (sequelize, DataTypes) => {
     const Task = sequelize.define('Task', {
         id: {
@@ -15,17 +14,17 @@ module.exports = (sequelize, DataTypes) => {
             allowNull: false,
         },
         priority: {
-            type: DataTypes.ENUM('High', 'Medium', 'Low'),
+            type: DataTypes.STRING,
             allowNull: false,
             defaultValue: 'Medium',
         },
         status: {
-            type: DataTypes.ENUM('Todo', 'In Progress', 'Completed'),
+            type: DataTypes.STRING,
             allowNull: false,
             defaultValue: 'Todo',
         },
         assignedUsers: {
-            type: DataTypes.JSONB, // To store multiple users, can be changed to INTEGER or UUID[] depending on your requirements.
+            type: DataTypes.JSONB, 
             allowNull: false,
         },
         dueDate: {
@@ -45,8 +44,8 @@ module.exports = (sequelize, DataTypes) => {
             allowNull: false,
         },
     }, {
-        tableName: 'tasks', // If you prefer, you can specify the name of the table here.
-        timestamps: true, // this will automatically add `createdAt` and `updatedAt`
+        tableName: 'tasks', 
+        timestamps: true,
     });
 
     return Task;

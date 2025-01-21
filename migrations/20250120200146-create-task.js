@@ -1,4 +1,3 @@
-// migrations/<timestamp>-create-task.js
 module.exports = {
   up: async (queryInterface, Sequelize) => {
       await queryInterface.createTable('tasks', {
@@ -16,17 +15,17 @@ module.exports = {
               allowNull: false,
           },
           priority: {
-              type: Sequelize.ENUM('High', 'Medium', 'Low'),
+              type: Sequelize.STRING,
               allowNull: false,
               defaultValue: 'Medium',
           },
           status: {
-              type: Sequelize.ENUM('Todo', 'In Progress', 'Completed'),
+              type: Sequelize.STRING,
               allowNull: false,
               defaultValue: 'Todo',
           },
           assignedUsers: {
-              type: Sequelize.JSONB, // Storing multiple users, can be changed to UUID array if required.
+              type: Sequelize.JSONB, 
               allowNull: false,
           },
           dueDate: {
