@@ -8,6 +8,9 @@ This is the backend API for the Task Manager application built with Node.js and 
 
 You can access the live API here: [Visit the Deployed API](https://task-manager-backend-7nni.onrender.com)
 
+You can also directly visit the API at the following URL:  
+`https://task-manager-backend-7nni.onrender.com`
+
 ## Technologies Used
 - Node.js
 - Express.js
@@ -147,6 +150,189 @@ You can access the live API here: [Visit the Deployed API](https://task-manager-
 
 **Authentication**: Use the JWT token in the Authorization header for subsequent requests:
 `Authorization: Bearer <jwt-token>`
+
+### 3. **Create Task**
+- **POST** `/tasks`
+- **Description**: Adds a new task to the system.
+- **Authorization**: Requires authentication (JWT Token).
+  
+#### Request Body:
+```json
+{
+  "title": "Task Title",
+  "description": "Task Description",
+  "priority": "high",
+  "assignedUsers": ["user1", "user2"],
+  "dueDate": "2025-01-25T12:00:00Z",
+  "status": "pending"
+}
+```
+#### Response (Success):
+```json
+{
+  "message": "Task Added successfully."
+}
+```
+#### Response (Failure):
+```json
+{
+  "message": "Internal server error."
+}
+```
+- Server Error:
+```json
+{ 
+    "message": "Internal server error." 
+}
+```
+
+
+### 4. **Get All Tasks**
+- **GET** `/tasks`
+- **Description**: Retrieves all tasks based on the user role (Admin or User).
+- **Authorization**: Requires authentication (JWT Token).
+#### Response (Admin):
+```json
+[
+  {
+    "id": 1,
+    "title": "Task 1",
+    "description": "Description of Task 1",
+    "priority": "high",
+    "assignedUsers": ["user1", "user2"],
+    "dueDate": "2025-01-25T12:00:00Z",
+    "status": "Completed"
+  }
+]
+```
+#### Response (User):
+```json
+[
+  {
+    "id": 1,
+    "title": "Assigned Task",
+    "description": "Description of Assigned Task",
+    "priority": "medium",
+    "assignedUsers": ["user1"],
+    "dueDate": "2025-01-25T12:00:00Z",
+    "status": "ToDo"
+  }
+]
+```
+#### Response (Failure):
+```json
+{
+  "message": "Unauthorized access"
+}
+```
+- Server Error:
+```json
+{ 
+    "message": "Internal server error." 
+}
+```
+
+
+
+### 5. **Get Task by ID**
+- **GET** `/tasks/:id`
+- **Description**:  RRetrieves a specific task by its ID.
+- **Authorization**: Requires authentication (JWT Token).
+#### Response (Success):
+```json
+{
+  "id": 1,
+  "title": "Task 1",
+  "description": "Description of Task 1",
+  "priority": "high",
+  "assignedUsers": ["user1", "user2"],
+  "dueDate": "2025-01-25T12:00:00Z",
+  "status": "pending"
+}
+```
+#### Response (Failure):
+```json
+{
+  "message": "Internal server error."
+}
+```
+
+
+
+
+### 6. **Delete Task**
+- **DELETE** `/tasks/:id`
+- **Description**: :Deletes a task by its ID.
+- **Authorization**: Requires authentication (JWT Token).
+#### Response (Success):
+```json
+{
+    "message": "Task deleted successfully."
+}
+```
+#### Response (Failure):
+```json
+{
+  "message": "Task not found"
+}
+```
+### 6. **Update Task**
+- **PUT** `/tasks/:id`
+- **Description**: : Updates an existing task's details.
+- **Authorization**: Requires authentication (JWT Token).
+#### Request Body:
+```json
+{
+  "status": "Coompleted",
+  "priority": "Medium",
+  "assignedUsers": ["user1"],
+  "title": "Updated Task Title",
+  "description": "Updated task description",
+  "dueDate": "2025-02-01T12:00:00Z"
+}
+```
+
+#### Response (Success):
+```json
+{
+  "message": "Task updated successfully",
+  "data": {
+    "id": 1,
+    "title": "Updated Task Title",
+    "description": "Updated task description",
+    "priority": "medium",
+    "assignedUsers": ["user1"],
+    "dueDate": "2025-02-01T12:00:00Z",
+    "status": "completed"
+  }
+}
+```
+#### Response (Failure):
+```json
+{
+  "message": "No task found with the given criteria."
+}
+```
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 ## Running Tests
 
