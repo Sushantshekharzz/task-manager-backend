@@ -310,6 +310,134 @@ You can also directly visit the API at the following URL:
 ```
 
 
+### 8. **Create User**
+- **POST** `/users`
+- **Description**: : Creates a new user. Only accessible by the admin.
+- **Authorization**: Requires authentication (JWT Token).
+#### Request Body:
+```json
+{
+  "userName": "new-username",
+  "passWord": "user-password",
+  "role": "user-role",
+  "name": "user-name"
+}
+```
+
+#### Response (Success):
+```json
+{
+   "message": "User Created successfully"
+}
+```
+#### Response (Failure):
+```json
+{
+  "message": "User already exists. Please choose a different email or username."
+}
+```
+
+
+### 9. **Get All Users**
+- **GET** `/users`
+- **Description**: : Retrieves all users created by the admin.
+- **Authorization**: Requires authentication (JWT Token).
+
+#### Response (Success):
+```json
+
+[
+  {
+    "id": 1,
+    "userName": "user1",
+    "name": "User One",
+    "role": "admin"
+  },
+  {
+    "id": 2,
+    "userName": "user2",
+    "name": "User Two",
+    "role": "user"
+  }
+]
+
+```
+#### Response (Failure):
+```json
+{
+  "message": "Internal server error."
+}
+```
+
+
+### `10. **Get User by ID**
+- **GET** `/users/:id`
+- **Description**: : Retrieves a specific user by their ID.
+- **Authorization**: Requires authentication (JWT Token).
+
+#### Response (Success):
+```json
+{
+  "id": 1,
+  "userName": "user1",
+  "name": "User One",
+  "role": "admin"
+}
+```
+#### Response (Failure):
+```json
+{
+  "message": "Internal server error."
+}
+```
+
+
+### 11. **Update User**
+- **PUT** `/users/:id`
+- **Description**: :Updates a user’s details (e.g., username, name). Only accessible by the admin.
+- **Authorization**: Requires authentication (JWT Token).
+#### Request Body:
+```json
+{
+  "userName": "updated-username",
+  "name": "Updated User Name"
+}
+```
+
+#### Response (Success):
+```json
+{
+  "message": "User updated successfully."
+}
+```
+#### Response (Failure):
+```json
+{
+  "message": "User not found or not authorized to update."
+}
+```
+
+
+
+
+
+### 12. **Delete User**
+- **PUT** `/users/:id`
+- **Description**: :Deletes a user by their ID. Only accessible by the admin.
+- **Authorization**: Requires authentication (JWT Token).
+
+#### Response (Success):
+```json
+{
+  "message": "User deleted successfully."
+}
+```
+#### Response (Failure):
+```json
+{
+  "message": "No user found with the given criteria."
+}
+```
 
 
 
