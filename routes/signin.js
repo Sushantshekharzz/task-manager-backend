@@ -18,7 +18,13 @@ app.post("/signin", async (req, res) => {
                 const role = userCheck.role
                 const name = userCheck.name
                 const id = userCheck.id
-                var token = jsonwebtoken.sign({ id, role, name, userName }, process.env.secret_key, { 'expiresIn': '1h' })
+                var token = jsonwebtoken.sign({ id, role, name, userName }, process.env.secret_key, { 'expiresIn': '1m' })
+                var refreshToken  = jsonwebtoken.sign({id,role,name,userName}, process.env.secret_key, { 'expiresIn': '1m' })
+                res.cookie("refresh_token", refreshToken, {
+                    httpOnly: true,  // Secure cookie that JavaScript cannot access
+                    secure: process.env.NODE_ENV === 'production',  // Set to true if using HTTPS
+                    sameSite: 'Strict',  // If frontend and backend are on different origins or ports
+                  });
                 return res.status(200).json({ "message": "Sucessfully Login", token: token, role: role, name: name })
             }
             else {

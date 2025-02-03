@@ -12,7 +12,14 @@ var userRouter  =  require('./routes/user')
 var taskRouter  = require('./routes/task')
 
 var app = express();
-app.use(cors())
+const corsOptions = {
+  origin: process.env.NODE_ENV === 'production' 
+    ? task-management-app-live.netlify.app  // Replace with your production frontend URL
+    : 'http://localhost:3000',  // Development URL
+  credentials: true,  // Allow cookies to be sent and received
+};
+
+app.use(cors(corsOptions));
 connection();
 
 // view engine setup
