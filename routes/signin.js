@@ -23,7 +23,7 @@ app.post("/signin", async (req, res) => {
                 res.cookie("refresh_token", refreshToken, {
                     httpOnly: true,  // Secure cookie that JavaScript cannot access
                     secure: process.env.NODE_ENV === 'production',  // Set to true if using HTTPS
-                    sameSite: 'Strict',  // If frontend and backend are on different origins or ports
+                    sameSite: 'None',  // If frontend and backend are on different origins or ports
                   });
                 return res.status(200).json({ "message": "Sucessfully Login", token: token, role: role, name: name })
             }
