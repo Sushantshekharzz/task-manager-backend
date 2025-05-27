@@ -18,7 +18,7 @@ app.post("/signin", async (req, res) => {
                 const role = userCheck.role
                 const name = userCheck.name
                 const id = userCheck.id
-                var token = jsonwebtoken.sign({ id, role, name, userName }, process.env.secret_key, { 'expiresIn': '1m' })
+                var token = jsonwebtoken.sign({ id, role, name, userName }, process.env.secret_key, { 'expiresIn': '1h' })
                 var refreshToken  = jsonwebtoken.sign({id,role,name,userName}, process.env.secret_key, { 'expiresIn': '1m' })
                 res.cookie("refresh_token", refreshToken, {
                     httpOnly: true,  // Secure cookie that JavaScript cannot access

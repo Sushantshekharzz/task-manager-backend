@@ -12,14 +12,14 @@ var userRouter  =  require('./routes/user')
 var taskRouter  = require('./routes/task')
 
 var app = express();
-const corsOptions = {
-  origin: process.env.NODE_ENV === 'production' 
-    ? 'https://task-management-app-live.netlify.app' // Replace with your production frontend URL
-    : 'http://localhost:3000',  // Development URL
-  credentials: true,  // Allow cookies to be sent and received
-};
+// const corsOptions = {
+//   origin: process.env.NODE_ENV === 'production' 
+//     ? 'https://task-management-app-live.netlify.app' // Replace with your production frontend URL
+//     : 'http://localhost:3001',  // Development URL
+//   credentials: true,  // Allow cookies to be sent and received
+// };
 
-app.use(cors(corsOptions));
+app.use(cors());
 connection();
 
 // view engine setup
