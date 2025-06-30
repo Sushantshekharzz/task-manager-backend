@@ -22,7 +22,7 @@ var app = express();
 
 const allowedOrigin =
   process.env.NODE_ENV === 'production'
-    ? 'https://your-production-frontend-url.com' // 🔁 Replace this with your actual production frontend
+    ? process.env.frontendurl // 🔁 Replace this with your actual production frontend
     : 'http://localhost:3000'; // Development frontend
 
 app.use(cors({
