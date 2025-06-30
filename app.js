@@ -4,7 +4,6 @@ var path = require('path');
 var cookieParser = require('cookie-parser');
 var cors = require('cors')
 var logger = require('morgan');
-var connection = require('./sequelize/sequelize')
 
 var signupRouter = require('./routes/signup');
 var signInRouter = require('./routes/signin')
@@ -19,9 +18,10 @@ var app = express();
 //   credentials: true,  // Allow cookies to be sent and received
 // };
 
-app.use(cors());
-connection();
-
+app.use(cors({
+  origin: "http://localhost:3001", // your frontend
+  credentials: true
+}));
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'jade');
