@@ -10,6 +10,7 @@ var signInRouter = require('./routes/signin')
 var userRouter  =  require('./routes/user')
 var taskRouter  = require('./routes/task')
 var signout  =  require("./routes/signout")
+var authverify  =  require("./routes/authverify")
 
 var app = express();
 // const corsOptions = {
@@ -22,7 +23,7 @@ var app = express();
 const allowedOrigin =
   process.env.NODE_ENV === 'production'
     ? 'https://your-production-frontend-url.com' // 🔁 Replace this with your actual production frontend
-    : 'http://localhost:3001'; // Development frontend
+    : 'http://localhost:3000'; // Development frontend
 
 app.use(cors({
   origin: allowedOrigin,
@@ -44,6 +45,7 @@ app.use('/', userRouter);
 app.use('/', taskRouter);
 
 app.use('/', signout);
+app.use("/", authverify)
 
 
 
