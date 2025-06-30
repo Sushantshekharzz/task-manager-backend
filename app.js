@@ -9,6 +9,7 @@ var signupRouter = require('./routes/signup');
 var signInRouter = require('./routes/signin')
 var userRouter  =  require('./routes/user')
 var taskRouter  = require('./routes/task')
+var signout  =  require("./routes/signout")
 
 var app = express();
 // const corsOptions = {
@@ -18,8 +19,13 @@ var app = express();
 //   credentials: true,  // Allow cookies to be sent and received
 // };
 
+const allowedOrigin =
+  process.env.NODE_ENV === 'production'
+    ? 'https://your-production-frontend-url.com' // 🔁 Replace this with your actual production frontend
+    : 'http://localhost:3001'; // Development frontend
+
 app.use(cors({
-  origin: "http://localhost:3001", // your frontend
+  origin: allowedOrigin,
   credentials: true
 }));
 // view engine setup
@@ -36,6 +42,8 @@ app.use('/', signupRouter);
 app.use('/', signInRouter);
 app.use('/', userRouter);
 app.use('/', taskRouter);
+
+app.use('/', signout);
 
 
 
