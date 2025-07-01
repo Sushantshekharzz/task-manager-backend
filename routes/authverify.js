@@ -14,7 +14,6 @@ router.get('/auth/verify', (req, res) => {
     if (err) return res.status(401).json({ message: 'Invalid token' });
 
     return res.status(200).json({
-      message: 'Authorized',
       role: decoded.role,
       name: decoded.name,
     });
