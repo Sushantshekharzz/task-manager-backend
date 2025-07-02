@@ -1,10 +1,7 @@
-var express = require('express');
-var router = express.Router();
 var { user } = require('../models/index')
 var bcrypt = require('bcrypt')
-var authentication = require('../middleware/authentication')
 
-router.post('/users', authentication, async function (req, res, next) {
+const addUser  = async (req, res, next) => {
     const { userName, passWord, role, name } = req.body;
     const adminId = req.user.adminId;  
     try {
@@ -18,25 +15,27 @@ router.post('/users', authentication, async function (req, res, next) {
             return res.status(200).json({ "message": "User Created successfully" })
         }
     } catch (error) {
+        console.log("rrrr",error)
         return res.status(500).json({ "message": "Internal server error." });
     }
-});
+}
 
-router.get("/users", authentication, async (req, res) => {
-    const adminId = req.user.adminId;  
-    try {
-        const response = await user.findAll({
-            where: { adminId: adminId },
-            attributes: { exclude: ['passWord',  'adminId'] }
-        })
-        return res.status(200).send(response)
-    } catch (error) {
-        return res.status(500).json({ "message": "Internal server error." });
-    }
-})
+const getUser  = async (req,res,next) =>{
+        const adminId = req.user.adminId;  
+        try {
+            const response = await user.findAll({
+                where: { adminId: adminId },
+                attributes: { exclude: ['passWord',  'adminId'] }
+            })
+            return res.status(200).send(response)
+        } catch (error) {
+            return res.status(500).json({ "message": "Internal server error." });
+        }
+    
 
-router.delete("/users/:id", authentication, async (req, res) => {
-    const adminId = req.user.adminId;  
+}
+const deleteUser  =  async(req,res,next) =>{
+        const adminId = req.user.adminId;  
     const id = req.params.id; 
     try {
         const response = await user.destroy({ where: { adminId: adminId, id: id } });
@@ -48,10 +47,13 @@ router.delete("/users/:id", authentication, async (req, res) => {
         console.error("Error during deletion:", error);
         return res.status(500).json({ message: "Internal server error." });
     }
-});
 
-router.get("/users/:id", authentication, async (req, res) => {
-    const adminId = req.user.adminId;  
+
+}
+
+
+const getUserById  =  async (req,res, next) =>{
+        const adminId = req.user.adminId;  
     const id = req.params.id; 
     try {
         const response = await user.findAll({
@@ -63,10 +65,12 @@ router.get("/users/:id", authentication, async (req, res) => {
         console.error("Error during deletion:", error);
         return res.status(500).json({ message: "Internal server error." });
     }
-});
 
-router.put("/users/:id", authentication, async (req, res) => {
-    const adminId = req.user.adminId;  
+
+}
+
+const updateUser  =  async (req,res,next ) =>{
+        const adminId = req.user.adminId;  
     const id = req.params.id; 
     const { userName, name } = req.body
     try {
@@ -85,7 +89,14 @@ router.put("/users/:id", authentication, async (req, res) => {
         console.error("Error during deletion:", error);
         return res.status(500).json({ message: "Internal server error." });
     }
-});
 
+}
 
-module.exports = router;
+module.exports = {
+    addUser,
+    getUser,
+    deleteUser,
+    getUserById,
+    updateUser
+
+}

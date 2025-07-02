@@ -7,7 +7,7 @@ var logger = require('morgan');
 
 var signupRouter = require('./routes/signup');
 var signInRouter = require('./routes/signin')
-var userRouter  =  require('./routes/user')
+var userRouter  =  require('./routes/user.routes')
 var taskRouter  = require('./routes/task')
 var signout  =  require("./routes/signout")
 var authverify  =  require("./routes/authverify")
@@ -41,7 +41,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/', signupRouter);
 app.use('/', signInRouter);
-app.use('/', userRouter);
+app.use('/users', userRouter);
 app.use('/', taskRouter);
 
 app.use('/', signout);
