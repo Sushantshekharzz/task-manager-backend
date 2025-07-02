@@ -1,11 +1,8 @@
-var express = require('express');
-var router = express.Router();
 var { user } = require('../models/index')
 var bcrypt = require('bcrypt')
 
-
-router.post('/signup', async function (req, res, next) {
-  const { userName, passWord, role, name } = req.body;
+const signUp = async(req,res,next) =>{
+      const { userName, passWord, role, name } = req.body;
   try {
     const userCheck = await user.findOne({ where: { userName: userName } })
     if (userCheck) {
@@ -20,6 +17,6 @@ router.post('/signup', async function (req, res, next) {
   } catch (error) {
     return res.status(500).json({ "message": "Internal server error." });
   }
-});
 
-module.exports = router;
+}
+module.exports = { signUp }

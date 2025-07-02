@@ -1,13 +1,10 @@
-var express = require('express')
-var app = express();
 var { Task } = require('../models/index')
-var authentication = require('../middleware/authentication')
 require('dotenv').config();
 const { Op } = require('sequelize');
 
 
-app.post("/tasks", authentication, async (req, res) => {
-    const { title, description, priority, assignedUsers, dueDate, status } = req.body;
+const postTask  = async (req,res,next) =>{
+        const { title, description, priority, assignedUsers, dueDate, status } = req.body;
     const adminId = req.user.adminId;
 
     try {
@@ -23,10 +20,12 @@ app.post("/tasks", authentication, async (req, res) => {
     } catch (error) {
         return res.status(500).json({ message: "Internal server error." });
     }
-})
 
-app.get("/tasks", authentication, async (req, res) => {
-    const { role, userName } = req.user;
+}
+
+
+const getTask = async(req,res,next)=>{
+        const { role, userName } = req.user;
     const adminId = req.user.adminId;
 
     try {
@@ -44,11 +43,12 @@ app.get("/tasks", authentication, async (req, res) => {
         console.log(error);
         return res.status(500).json({ message: "Internal server error." });
     }
-});
 
 
-app.get("/tasks/:id", authentication, async (req, res) => {
-    const id = req.params.id
+}
+
+const getTaskById = async (req, res) => {
+        const id = req.params.id
 
     try {
         const response = await Task.findOne({ where: { id: id } });
@@ -56,11 +56,13 @@ app.get("/tasks/:id", authentication, async (req, res) => {
     } catch (error) {
         return res.status(500).json({ message: "Internal server error." });
     }
-})
 
-app.put("/tasks/:id", authentication, async (req, res) => {
 
-    const taskId = req.params.id;
+}
+
+
+const updateTask  =  async (req,res,next) =>{
+        const taskId = req.params.id;
     const { status, priority, assignedUsers, title, description, dueDate } = req.body;
 
     try {
@@ -83,10 +85,12 @@ app.put("/tasks/:id", authentication, async (req, res) => {
         console.log("eeee", error)
         res.status(500).json({ message: 'Error updating task', error: error.message });
     }
-})
 
-app.delete("/tasks/:id", authentication, async (req, res) => {
-    const adminId = req.user.adminId;
+
+}
+
+const deleteTask = async  (req,res,next) =>{
+        const adminId = req.user.adminId;
     const id = req.params.id;
     try {
         const response = await Task.destroy({ where: { adminId: adminId, id: id } });
@@ -98,6 +102,7 @@ app.delete("/tasks/:id", authentication, async (req, res) => {
         console.error("Error during deletion:", error);
         return res.status(500).json({ message: "Internal server error." });
     }
-});
 
-module.exports = app
+
+}
+module.exports = {postTask, getTask, getTaskById, updateTask, deleteTask}

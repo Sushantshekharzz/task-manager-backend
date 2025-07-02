@@ -1,12 +1,9 @@
-var express = require('express')
-var app = express();
 var { user } = require('../models/index')
 var jsonwebtoken = require('jsonwebtoken')
-require('dotenv').config();
 var bcrypt = require('bcrypt')
 
-app.post("/signin", async (req, res) => {
-    const { userName, passWord } = req.body;
+const signIn   = async (req,res,next) =>{
+        const { userName, passWord } = req.body;
     try {
         const userCheck = await user.findOne({ where: { userName: userName } })
         if (!userCheck) {
@@ -39,6 +36,6 @@ app.post("/signin", async (req, res) => {
         console.log("error", error)
         return res.status(500).json({ "message": "Internal server error." });
     }
-})
 
-module.exports = app
+}
+module.exports = {signIn}

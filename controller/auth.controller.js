@@ -1,10 +1,10 @@
-// routes/verify.js
-const express = require('express');
-const router = express.Router();
 const jwt = require('jsonwebtoken');
 
-router.get('/auth/verify', (req, res) => {
-  const token = req.cookies.token;
+const verifyToken = (req,res,next) =>{
+    console.log("eeeee")
+    console.log("rrrr",req)
+    const token = req.cookies.token;
+    console.log("rrrr",token)
 
   if (!token) {
     return res.status(401).json({ message: 'Token missing' });
@@ -18,6 +18,8 @@ router.get('/auth/verify', (req, res) => {
       name: decoded.name,
     });
   });
-});
 
-module.exports = router;
+
+}
+
+module.exports = {verifyToken};

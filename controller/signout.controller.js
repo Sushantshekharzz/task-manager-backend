@@ -1,8 +1,5 @@
-const express = require('express');
-const router = express.Router();
-
-router.post('/signout', (req, res) => {
-  res.clearCookie('token', {
+const signOut  = (req,res,next) =>{
+      res.clearCookie('token', {
     httpOnly: true,
     secure: process.env.NODE_ENV === 'production',
     sameSite: process.env.NODE_ENV === 'production' ? 'None' : 'Lax',
@@ -11,6 +8,7 @@ router.post('/signout', (req, res) => {
 
   });
   return res.status(200).json({ message: 'Successfully logged out' });
-});
 
-module.exports = router;
+}
+
+module.exports = {signOut}

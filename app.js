@@ -5,12 +5,12 @@ var cookieParser = require('cookie-parser');
 var cors = require('cors')
 var logger = require('morgan');
 
-var signupRouter = require('./routes/signup');
-var signInRouter = require('./routes/signin')
+var signupRouter = require('./routes/signup.routes');
+var signInRouter = require('./routes/signin.routes');
 var userRouter  =  require('./routes/user.routes')
-var taskRouter  = require('./routes/task')
-var signout  =  require("./routes/signout")
-var authverify  =  require("./routes/authverify")
+var taskRouter  = require('./routes/task.routes')
+var signout  =  require("./routes/signout.routes")
+var authverify  =  require("./routes/authverify.routes")
 
 var app = express();
 // const corsOptions = {
@@ -39,13 +39,13 @@ app.use(express.urlencoded({ extended: true }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
-app.use('/', signupRouter);
-app.use('/', signInRouter);
+app.use('/signup', signupRouter);
+app.use('/signin', signInRouter);
 app.use('/users', userRouter);
-app.use('/', taskRouter);
+app.use('/tasks', taskRouter);
 
-app.use('/', signout);
-app.use("/", authverify)
+app.use('/signout', signout);
+app.use("/auth/verify", authverify)
 
 
 
