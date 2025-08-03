@@ -2,6 +2,7 @@ var { user } = require('../models/index')
 var bcrypt = require('bcrypt')
 
 const addUser  = async (req, res, next) => {
+    
     const { userName, passWord, role, name } = req.body;
     const adminId = req.user.adminId;  
     try {
@@ -15,7 +16,6 @@ const addUser  = async (req, res, next) => {
             return res.status(200).json({ "message": "User Created successfully" })
         }
     } catch (error) {
-        console.log("rrrr",error)
         return res.status(500).json({ "message": "Internal server error." });
     }
 }
