@@ -5,6 +5,9 @@ require('dotenv').config();
 
 const authentication = (req, res, next) => {
     const token = req.cookies.accessToken
+    if (!token) {
+    return res.status(401).json({ message: 'Token missing' });
+  }
     jwt.verify(token, process.env.secret_key, (err, auth) => {
         if (err) {
         if (err.name === "TokenExpiredError") {
