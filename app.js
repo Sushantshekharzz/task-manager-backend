@@ -46,7 +46,6 @@ app.use('/users', userRouter);
 app.use('/tasks', taskRouter);
 
 app.use('/signout', signout);
-app.use("/auth/verify", authverify)
 app.use("/auth",resfreshToken )
 
 
