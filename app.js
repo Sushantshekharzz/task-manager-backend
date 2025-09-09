@@ -11,6 +11,7 @@ var userRouter  =  require('./routes/user.routes')
 var taskRouter  = require('./routes/task.routes')
 var signout  =  require("./routes/signout.routes")
 var resfreshToken =  require("./routes/refreshtoken.routes")
+var sequelize = require('./sequelize/sequelize')
 
 var app = express();
 // const corsOptions = {
@@ -19,6 +20,14 @@ var app = express();
 //     : 'http://localhost:3001',  // Development URL
 //   credentials: true,  // Allow cookies to be sent and received
 // };
+
+sequelize.authenticate()
+  .then(() => {
+    console.log("✅ Database connected successfully.");
+  })
+  .catch((err) => {
+    console.error("❌ Unable to connect to the database:", err);
+  });
 
 const allowedOrigin =
   process.env.NODE_ENV === 'production'
