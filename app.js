@@ -10,7 +10,6 @@ var signInRouter = require('./routes/signin.routes');
 var userRouter  =  require('./routes/user.routes')
 var taskRouter  = require('./routes/task.routes')
 var signout  =  require("./routes/signout.routes")
-var authverify  =  require("./routes/authverify.routes")
 var resfreshToken =  require("./routes/refreshtoken.routes")
 
 var app = express();
