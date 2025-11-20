@@ -64,6 +64,7 @@ const getTaskById = async (req, res) => {
 const updateTask  =  async (req,res,next) =>{
         const taskId = req.params.id;
     const { status, priority, assignedUsers, title, description, dueDate } = req.body;
+    console.log("eee",req.body)
 
     try {
         const task = await Task.findByPk(taskId);

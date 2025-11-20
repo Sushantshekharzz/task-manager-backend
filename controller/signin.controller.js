@@ -13,10 +13,12 @@ const signIn   = async (req,res,next) =>{
             const verify = await bcrypt.compare(passWord, userCheck.passWord)
             if (verify) {
                 const role = userCheck.role
+                console.log("rrrrrole",role)
                 const name = userCheck.name
                 const id = userCheck.id
                 var token = jsonwebtoken.sign({ id, role, name, userName }, process.env.secret_key, { 'expiresIn': '1min' })
                 var refreshToken = jsonwebtoken.sign({ id, role, name, userName }, process.env.secret_key, { 'expiresIn': '1d' })
+
 
                 res.cookie("accessToken", token, {
                     httpOnly: true,
@@ -32,7 +34,10 @@ const signIn   = async (req,res,next) =>{
     sameSite: 'Lax',
     maxAge: 7 * 24 * 60 * 60 * 1000,
   });
-                return res.status(200).json({ "message": "Sucessfully Login", token: token, role: role, name: name })
+                return res.status(200).json({ "message": "Sucessfully Login",                   
+                        user: { name: name,  role:role}
+ })
+
             }
             else {
                 return res.status(401).json({ "message": "Unauthorized User" })

@@ -15,6 +15,7 @@ const refreshAccessToken = (req, res) => {
       expiresIn: '15m',
     });
 
+
     res.cookie('accessToken', newAccessToken, {
       httpOnly: true,
       secure: process.env.NODE_ENV === 'production',
@@ -22,7 +23,10 @@ const refreshAccessToken = (req, res) => {
       maxAge: 15 * 60 * 1000,
     });
 
-    return res.status(200).json({ message: 'Access token refreshed' });
+    return res.status(200).json({
+        status: 200,
+        user: { id: user.id, name: user.name , role:user.role}
+      });
   });
    } catch (error) {
     console.log("eeee",error)
